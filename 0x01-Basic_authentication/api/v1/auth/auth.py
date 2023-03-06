@@ -27,9 +27,12 @@ class Auth:
 
     def authorization_header(self, request=None) -> str:
         """
-        yet to be implemented
+        returns the authorization credentials
         """
-        return None
+        if not request:
+            return None
+        else:
+            return request.headers.get('Authorization', None)
 
     def current_user(self, request=None) -> TypeVar('User'):
         """
