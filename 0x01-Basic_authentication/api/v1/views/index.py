@@ -13,8 +13,17 @@ def status() -> str:
     """
     return jsonify({"status": "OK"})
 
+
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
+def forbidden() -> str:
+    """
+    return 403 error
+    """
+    abort(403)
+
+
 @app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
-def unauthorized():
+def unauthorized() -> str:
     """
     return 401 error
     """
