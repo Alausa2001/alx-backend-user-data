@@ -17,11 +17,16 @@ class Auth:
         """
         if path is None or excluded_paths is None:
             return True
+
+        for excluded_path in excluded_paths:
+            if '*' in excluded_path:
+                if path.startswith(excluded_path.replace('*', '')):
+                    return False
+
         if path[-1] == '/':
             path = path
-        elif '/api/v1/stat' in path:
+        else:
             path = path + '/'
-            return False
         if path not in excluded_paths:
             return True
         return False
