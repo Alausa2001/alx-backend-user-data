@@ -4,6 +4,8 @@ Implememt basic authentication
 """
 import base64
 from api.v1.auth.auth import Auth
+from models.user import User
+from typing import TypeVar
 
 
 class BasicAuth(Auth):
@@ -55,3 +57,28 @@ class BasicAuth(Auth):
             email = decoded_base64_authorization_header[:col_idx]
             pwd = decoded_base64_authorization_header[col_idx + 1:]
             return email, pwd
+
+    def user_object_from_credentials(self, user_email: str,
+                                     user_pwd: str) -> TypeVar('User'):
+        """
+        returns the User instance based on his email and password
+        """
+        if not user_email or type(user_email) is not str:
+            return None
+        if not user_pwd or type(user_pwd) is not str:
+            return None
+        try:
+            User.load_from_file()
+            users_with_mail = User.search({'email': user_email})
+
+            if not users_with_mail:
+                return None
+
+            if users_with_mail:
+                for user in users_with_mail:
+                    if user.is_valid_password(user_pwd):
+                        return user
+                return None
+
+        except FileNotFoundError:
+            return None
