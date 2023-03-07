@@ -82,3 +82,15 @@ class BasicAuth(Auth):
 
         except FileNotFoundError:
             return None
+
+    def current_user(self, request=None) -> TypeVar('User'):
+        """
+        complete Basic authentication.
+        """
+        auth_header = self.authorization_header(request)
+        encoded_credential = \
+            self.extract_base64_authorization_header(auth_header)
+        credentials = \
+            self.decode_base64_authorization_header(encoded_credential)
+        email, pwd = self.extract_user_credentials(credentials)
+        return self.user_object_from_credentials(email, pwd)
