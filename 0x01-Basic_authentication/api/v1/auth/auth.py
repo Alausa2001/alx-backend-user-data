@@ -19,8 +19,9 @@ class Auth:
             return True
         if path[-1] == '/':
             path = path
-        else:
+        elif '/api/v1/stat' in path:
             path = path + '/'
+            return False
         if path not in excluded_paths:
             return True
         return False
