@@ -2,6 +2,7 @@
 """
 class to manage the API authentication.
 """
+import os
 from flask import request
 from typing import List, TypeVar
 
@@ -45,3 +46,13 @@ class Auth:
         yet to be implemented
         """
         return None
+
+    def session_cookie(self, request=None):
+        """
+        returns a cookie value from a request
+        """
+        if request is None:
+            return None
+        else:
+            self._my_session_id = os.getenv('SESSION_NAME')
+            return request.cookies.get(self._my_session_id)
