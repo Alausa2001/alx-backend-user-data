@@ -60,7 +60,7 @@ class SessionExpAuth(SessionAuth):
         if self.session_duration <= 0:
             for key in self.session_dict.keys():
                 if key == 'user_id':
-                    return key
+                    return self.session_dict.get(key)
         if self.session_dict.get('created_at') is None:
             return None
 
