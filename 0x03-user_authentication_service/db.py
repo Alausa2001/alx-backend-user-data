@@ -48,8 +48,6 @@ class DB:
         found in the users table as filtered by
         the method’s input arguments.
         """
-        if not kwargs:
-            raise InvalidRequestError
         try:
             user = self._session.query(User).filter_by(**kwargs).first()
             if user is None:
