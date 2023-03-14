@@ -34,8 +34,8 @@ class DB:
         """
         adds a user to the database
         """
-        self.__session = self._session
+        # lf.__session = self._session
         new_user = User(email=email, hashed_password=password)
-        self.__session.add(new_user)
-        self.__session.commit()
+        self._session.add(new_user)
+        self._session.commit()
         return new_user
