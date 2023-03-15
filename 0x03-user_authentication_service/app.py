@@ -60,14 +60,15 @@ def logout():
     """
     delete a user session
     """
-    session_id = request.cookie.get('session_id')
+    session_id = request.cookies.get('session_id')
     if session_id:
         user = AUTH.get_user_from_session_id(session_id)
         if not user:
             abort(403)
         AUTH.destroy_session(user.id)
-        return redirect('/', code=302)
+        return redirect(url_for('welcome'))
     abort(403)
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port="5000")
