@@ -6,7 +6,7 @@ import bcrypt
 from auth import _hash_password
 
 
-pwd = "Hello Holberton"
+pwd = "Heo Holbern"
 en = pwd.encode()
 hashed = _hash_password(pwd)
 print(hashed)
