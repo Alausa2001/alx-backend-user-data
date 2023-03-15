@@ -56,7 +56,7 @@ def user_session():
 
 
 @app.route('/sessions', methods=['DELETE'], strict_slashes=False)
-def delete_session():
+def logout():
     """
     delete a user session
     """
