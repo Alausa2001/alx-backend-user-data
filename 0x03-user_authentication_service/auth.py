@@ -21,7 +21,7 @@ def _hash_password(password: str) -> bytes:
     return bcrypt.hashpw(password, bcrypt.gensalt())
 
 
-def _generate_uuid() -> str:
+def _generate_uuid(self) -> str:
     """
     generates unique identifiers
     """
