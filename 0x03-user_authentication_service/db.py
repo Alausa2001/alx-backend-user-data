@@ -55,7 +55,7 @@ class DB:
             return user
         except AttributeError:
             raise InvalidRequestError
-    
+
     def update_user(self, user_id: int, **kw) -> None:
         """
         locate the user to update, then will update
