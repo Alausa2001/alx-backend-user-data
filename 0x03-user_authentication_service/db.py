@@ -42,7 +42,7 @@ class DB:
         self._session.commit()
         return new_user
 
-    def find_user_by(self, **kwargs: dict) -> User:
+    def find_user_by(self, **kwargs):
         """
         takes in arbitrary keyword arguments and returns the first row
         found in the users table as filtered by
@@ -55,11 +55,12 @@ class DB:
             return user
         except AttributeError:
             raise InvalidRequestError
-
-    def update_user(self, user_id: int, **kw: dict) -> None:
+    
+    def update_user(self, user_id: int, **kw) -> None:
         """
-        locate the user to update, then will update the
-        user’s attributes as passed in the method’s arguments
+        locate the user to update, then will update
+        the user’s attributes as passed in the
+        method’s arguments
         """
         try:
             user = self.find_user_by(id=user_id)
@@ -68,9 +69,11 @@ class DB:
 
         try:
             for key, value in kw.items():
-                if hasattr(user, key):
+                if hasattr(User, key):
                     setattr(user, key, value)
-            self._session.commit()
-            return None
+                else:
+                    raise ValueError
         except ValueError:
             raise ValueError
+        self._session.commit()
+        return None
