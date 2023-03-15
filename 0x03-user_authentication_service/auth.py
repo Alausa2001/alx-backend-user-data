@@ -29,7 +29,8 @@ class Auth:
 
     def register_user(self, email: str, password: str) -> User:
         """
-
+        registers a user: password is hashed before being saved
+        into the database
         """
         try:
             user_exist = self._db.find_user_by(email=email)
@@ -40,3 +41,16 @@ class Auth:
             return new_user
         if user_exist:
             raise ValueError("User {} already exists".format(email))
+
+    def valid_login(self, email: str, password: str) -> bool:
+        """
+        credentials validation
+        """
+        password = password.encode('utf-8')
+        try:
+            user = self._db.find_user_by(email=email)
+            if bcrypt.checkpw(password, user.hashed_password):
+                return True
+            return False
+        except NoResultFound:
+            return False
