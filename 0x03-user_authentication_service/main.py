@@ -17,6 +17,7 @@ def register_user(email: str, password: str) -> None:
         assert res.status_code == 200
         assert res.json() == {"email": f"{email}", "message": "user created"}
 
+
 def log_in_wrong_password(email: str, password: str) -> None:
     """
     Test log in with wrong pwd
@@ -25,6 +26,7 @@ def log_in_wrong_password(email: str, password: str) -> None:
     response = requests.post('http://localhost:5000/sessions', data=user)
     assert response.status_code == 401
     # print(response)
+
 
 def profile_unlogged() -> None:
     """
@@ -35,6 +37,8 @@ def profile_unlogged() -> None:
     if session_id is None:
         assert response.status_code == 403
     # print(response.status_code)
+
+
 """
 def log_in(email: str, password: str) -> str:
     ""
@@ -57,4 +61,4 @@ if __name__ == "__main__":
     register_user(EMAIL, PASSWD)
     log_in_wrong_password(EMAIL, NEW_PASSWD)
     profile_unlogged()
-    #session_id = log_in(EMAIL, NEW_PASSWD)
+    # session_id = log_in(EMAIL, NEW_PASSWD)
