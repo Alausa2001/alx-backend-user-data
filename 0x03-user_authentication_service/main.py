@@ -45,12 +45,12 @@ def log_in(email: str, password: str) -> str:
     Test user login with correct credentials
     ""
     user = {'email': email, 'password': password}
-    response = requests.post('http://localhost:5000/profile', data=user)
+    response = requests.post('http://localhost:5000/sessions', data=user)
     assert response.status_code != 200
-    assert response.json() == {"email": f"{email}", "message": "logged in"}
+    assert response.json() == {"email": "{email}", "message": "logged in"}
     return response.cookies.get('session_id')
-
 """
+
 
 EMAIL = "guillaume@holberton.io"
 PASSWD = "b4l0u"
@@ -61,4 +61,4 @@ if __name__ == "__main__":
     register_user(EMAIL, PASSWD)
     log_in_wrong_password(EMAIL, NEW_PASSWD)
     profile_unlogged()
-    # session_id = log_in(EMAIL, NEW_PASSWD)
+    session_id = log_in(EMAIL, NEW_PASSWD)
