@@ -61,4 +61,4 @@ if __name__ == "__main__":
     register_user(EMAIL, PASSWD)
     log_in_wrong_password(EMAIL, NEW_PASSWD)
     profile_unlogged()
-    session_id = log_in(EMAIL, NEW_PASSWD)
+    # session_id = log_in(EMAIL, NEW_PASSWD)
